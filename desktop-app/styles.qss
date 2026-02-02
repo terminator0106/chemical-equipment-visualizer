@@ -1,0 +1,511 @@
+/*
+  ChemViz Desktop – Premium Dark Theme (QSS)
+
+  Palette:
+    Background:        #0B0F19
+    Surface cards:     #121826
+    Borders:           #1F2937
+    Primary accent:    #3B82F6
+    Secondary accent:  #22D3EE
+    Text primary:      #E5E7EB
+    Text muted:        #9CA3AF
+    Danger:            #EF4444
+    Success:           #22C55E
+*/
+
+* { outline: none; }
+
+QWidget {
+    background: #0B0F19;
+    color: #E5E7EB;
+    font-family: "Inter", "Segoe UI", Arial;
+    font-size: 15px;
+}
+
+/* Remove backgrounds from all labels */
+QLabel {
+    background: transparent;
+}
+
+/* Smooth scrolling */
+QScrollArea {
+    border: none;
+}
+
+QScrollBar:vertical {
+    background: transparent;
+    width: 14px;
+    margin: 8px 0px 8px 0px;
+}
+QScrollBar::handle:vertical {
+    background: rgba(156, 163, 175, 0.30);
+    border-radius: 7px;
+    min-height: 30px;
+}
+QScrollBar::handle:vertical:hover {
+    background: rgba(156, 163, 175, 0.45);
+}
+QScrollBar::add-line:vertical, QScrollBar::sub-line:vertical {
+    height: 0px;
+}
+QScrollBar::add-page:vertical, QScrollBar::sub-page:vertical {
+    background: none;
+}
+
+/* Top app bar */
+QFrame#TopBar {
+    background: #0E1424;
+    border-bottom: 1px solid #1F2937;
+    min-height: 64px;
+}
+
+QLabel#AppTitle {
+    font-size: 26px;
+    font-weight: 800;
+    color: #E5E7EB;
+    background: transparent;
+}
+
+QLabel#UserInfo {
+    color: #9CA3AF;
+    font-size: 15px;
+    background: transparent;
+}
+
+/* Page typography */
+QLabel#PageTitle {
+    font-size: 32px;
+    font-weight: 800;
+    color: #E5E7EB;
+    background: transparent;
+    padding: 4px 0px;
+}
+
+QLabel#SectionTitle {
+    font-size: 20px;
+    font-weight: 600;
+    color: #E5E7EB;
+    background: transparent;
+}
+
+QLabel#Muted {
+    font-size: 16px;
+    color: #9CA3AF;
+    background: transparent;
+    line-height: 1.5;
+}
+
+QFrame#Divider { background: #1F2937; }
+
+/* Cards */
+QFrame#Card {
+    background: qlineargradient(x1:0, y1:0, x2:0, y2:1,
+        stop:0 #141B2E,
+        stop:1 #0F1424);
+    border: 2px solid #1F2937;
+    border-radius: 18px;
+}
+
+QFrame#CardHover {
+    background: qlineargradient(x1:0, y1:0, x2:0, y2:1,
+        stop:0 #141B2E,
+        stop:1 #0F1424);
+    border: 2px solid #1F2937;
+    border-radius: 18px;
+}
+
+QFrame#CardHover:hover {
+    border: 2px solid rgba(59, 130, 246, 0.45);
+    background: qlineargradient(x1:0, y1:0, x2:0, y2:1,
+        stop:0 #161D32,
+        stop:1 #111729);
+}
+
+/* KPI Cards */
+QFrame#KPICard_cyan {
+    background: qlineargradient(x1:0, y1:0, x2:1, y2:1,
+        stop:0 rgba(6, 182, 212, 0.12),
+        stop:1 rgba(59, 130, 246, 0.12));
+    border: 2px solid rgba(34, 211, 238, 0.35);
+    border-radius: 18px;
+}
+
+QFrame#KPICard_teal {
+    background: qlineargradient(x1:0, y1:0, x2:1, y2:1,
+        stop:0 rgba(20, 184, 166, 0.12),
+        stop:1 rgba(34, 197, 94, 0.12));
+    border: 2px solid rgba(20, 184, 166, 0.35);
+    border-radius: 18px;
+}
+
+QFrame#KPICard_blue {
+    background: qlineargradient(x1:0, y1:0, x2:1, y2:1,
+        stop:0 rgba(99, 102, 241, 0.12),
+        stop:1 rgba(59, 130, 246, 0.12));
+    border: 2px solid rgba(99, 102, 241, 0.35);
+    border-radius: 18px;
+}
+
+QFrame#KPICard_emerald {
+    background: qlineargradient(x1:0, y1:0, x2:1, y2:1,
+        stop:0 rgba(16, 185, 129, 0.12),
+        stop:1 rgba(34, 197, 94, 0.12));
+    border: 2px solid rgba(34, 197, 94, 0.35);
+    border-radius: 18px;
+}
+
+QLabel#KPIIcon {
+    font-size: 56px;
+    background: transparent;
+    padding: 10px;
+}
+
+QLabel#KPITitle {
+    font-size: 14px;
+    color: #9CA3AF;
+    font-weight: 700;
+    letter-spacing: 1px;
+    background: transparent;
+    padding: 6px 0px;
+}
+
+QLabel#KPIValue {
+    font-size: 48px;
+    font-weight: 900;
+    color: #E5E7EB;
+    background: transparent;
+    padding: 8px 0px;
+}
+
+/* Metric Badges */
+QFrame#MetricBadge_blue {
+    background: qlineargradient(x1:0, y1:0, x2:1, y2:0,
+        stop:0 rgba(59, 130, 246, 0.15),
+        stop:1 rgba(99, 102, 241, 0.15));
+    border: 2px solid rgba(59, 130, 246, 0.40);
+    border-radius: 12px;
+}
+
+QFrame#MetricBadge_teal {
+    background: qlineargradient(x1:0, y1:0, x2:1, y2:0,
+        stop:0 rgba(20, 184, 166, 0.15),
+        stop:1 rgba(34, 197, 94, 0.15));
+    border: 2px solid rgba(20, 184, 166, 0.40);
+    border-radius: 12px;
+}
+
+QFrame#MetricBadge_indigo {
+    background: qlineargradient(x1:0, y1:0, x2:1, y2:0,
+        stop:0 rgba(99, 102, 241, 0.15),
+        stop:1 rgba(129, 140, 248, 0.15));
+    border: 2px solid rgba(99, 102, 241, 0.40);
+    border-radius: 12px;
+}
+
+QFrame#MetricBadge_emerald {
+    background: qlineargradient(x1:0, y1:0, x2:1, y2:0,
+        stop:0 rgba(16, 185, 129, 0.15),
+        stop:1 rgba(34, 197, 94, 0.15));
+    border: 2px solid rgba(16, 185, 129, 0.40);
+    border-radius: 12px;
+}
+
+QLabel#MetricValue {
+    font-size: 17px;
+    font-weight: 800;
+    color: #E5E7EB;
+    background: transparent;
+}
+
+QLabel#MetricLabel {
+    font-size: 14px;
+    color: #9CA3AF;
+    background: transparent;
+    font-weight: 600;
+}
+
+QLabel#InsightTitle {
+    font-size: 18px;
+    font-weight: 800;
+    color: #E5E7EB;
+    background: transparent;
+}
+
+QLabel#InsightText {
+    font-size: 15px;
+    color: #D1D5DB;
+    background: transparent;
+    line-height: 1.6;
+}
+
+/* Status Badge */
+QLabel#StatusActive {
+    font-size: 13px;
+    font-weight: 800;
+    color: #22C55E;
+    background: rgba(34, 197, 94, 0.15);
+    border: 2px solid rgba(34, 197, 94, 0.40);
+    padding: 8px 14px;
+    border-radius: 10px;
+}
+
+/* Insight Cards */
+QFrame#InsightNormal {
+    background: qlineargradient(x1:0, y1:0, x2:1, y2:1,
+        stop:0 rgba(34, 197, 94, 0.12),
+        stop:1 rgba(16, 185, 129, 0.12));
+    border: 2px solid rgba(34, 197, 94, 0.35);
+    border-radius: 16px;
+}
+
+QFrame#InsightWarning {
+    background: qlineargradient(x1:0, y1:0, x2:1, y2:1,
+        stop:0 rgba(234, 179, 8, 0.12),
+        stop:1 rgba(251, 191, 36, 0.12));
+    border: 2px solid rgba(234, 179, 8, 0.35);
+    border-radius: 16px;
+}
+
+QFrame#InsightCritical {
+    background: qlineargradient(x1:0, y1:0, x2:1, y2:1,
+        stop:0 rgba(239, 68, 68, 0.12),
+        stop:1 rgba(220, 38, 38, 0.12));
+    border: 2px solid rgba(239, 68, 68, 0.35);
+    border-radius: 16px;
+}
+
+/* Tabs */
+QTabWidget::pane {
+    border: 1px solid #1F2937;
+    border-radius: 14px;
+    background: #0E1424;
+    padding: 10px;
+}
+
+QTabBar::tab {
+    background: transparent;
+    border: 1px solid transparent;
+    padding: 10px 14px;
+    margin-right: 8px;
+    border-radius: 10px;
+    color: #9CA3AF;
+    font-weight: 700;
+    font-size: 14px;
+}
+
+QTabBar::tab:hover {
+    background: rgba(59, 130, 246, 0.12);
+    color: #E5E7EB;
+}
+
+QTabBar::tab:selected {
+    background: rgba(59, 130, 246, 0.18);
+    border: 1px solid rgba(59, 130, 246, 0.35);
+    color: #E5E7EB;
+}
+
+/* Inputs */
+QLineEdit {
+    background: transparent;
+    border: 2px solid #1F2937;
+    border-radius: 14px;
+    color: #E5E7EB;
+    padding: 16px 18px;
+    selection-background-color: rgba(59, 130, 246, 0.35);
+    font-size: 17px;
+    min-height: 56px;
+}
+
+QLineEdit:hover { 
+    border: 2px solid rgba(59, 130, 246, 0.40); 
+    background: rgba(59, 130, 246, 0.05);
+}
+
+QLineEdit:focus {
+    border: 2px solid rgba(59, 130, 246, 0.85);
+    background: rgba(59, 130, 246, 0.08);
+}
+
+/* Buttons */
+QPushButton {
+    border-radius: 14px;
+    padding: 16px 24px;
+    font-size: 17px;
+    font-weight: 900;
+    min-height: 56px;
+}
+
+QPushButton#NavButton {
+    border-radius: 12px;
+    padding: 12px 16px;
+    font-size: 15px;
+    font-weight: 800;
+}
+
+QPushButton#PrimaryButton {
+    background: qlineargradient(x1:0, y1:0, x2:1, y2:0,
+        stop:0 #3B82F6,
+        stop:1 #2563EB);
+    color: #ffffff;
+    border: 2px solid rgba(59, 130, 246, 0.70);
+}
+
+QPushButton#PrimaryButton:hover { 
+    background: qlineargradient(x1:0, y1:0, x2:1, y2:0,
+        stop:0 #2F6FE0,
+        stop:1 #1D4ED8);
+    border: 2px solid rgba(59, 130, 246, 0.85);
+}
+
+QPushButton#PrimaryButton:pressed { 
+    background: #2A63C8; 
+}
+
+QPushButton#SecondaryButton {
+    background: qlineargradient(x1:0, y1:0, x2:1, y2:0,
+        stop:0 rgba(34, 211, 238, 0.18),
+        stop:1 rgba(59, 130, 246, 0.18));
+    color: #E5E7EB;
+    border: 2px solid rgba(34, 211, 238, 0.45);
+}
+
+QPushButton#SecondaryButton:hover { 
+    background: qlineargradient(x1:0, y1:0, x2:1, y2:0,
+        stop:0 rgba(34, 211, 238, 0.28),
+        stop:1 rgba(59, 130, 246, 0.28));
+    border: 2px solid rgba(34, 211, 238, 0.65);
+}
+
+QPushButton#OutlineButton {
+    background: transparent;
+    color: #E5E7EB;
+    border: 2px solid #1F2937;
+}
+
+QPushButton#OutlineButton:hover {
+    border: 2px solid rgba(59, 130, 246, 0.65);
+    background: rgba(59, 130, 246, 0.12);
+}
+
+QPushButton#DangerButton {
+    background: qlineargradient(x1:0, y1:0, x2:1, y2:0,
+        stop:0 rgba(239, 68, 68, 0.20),
+        stop:1 rgba(220, 38, 38, 0.20));
+    color: #E5E7EB;
+    border: 2px solid rgba(239, 68, 68, 0.50);
+}
+
+QPushButton#DangerButton:hover { 
+    background: qlineargradient(x1:0, y1:0, x2:1, y2:0,
+        stop:0 rgba(239, 68, 68, 0.30),
+        stop:1 rgba(220, 38, 38, 0.30));
+    border: 2px solid rgba(239, 68, 68, 0.70);
+}
+
+QPushButton:disabled {
+    background: rgba(31, 41, 55, 0.55);
+    color: rgba(229, 231, 235, 0.45);
+    border: 2px solid rgba(31, 41, 55, 0.55);
+}
+
+/* Scrollbars */
+QScrollBar:vertical {
+    background: transparent;
+    width: 12px;
+    margin: 6px 0px 6px 0px;
+}
+QScrollBar::handle:vertical {
+    background: rgba(156, 163, 175, 0.25);
+    border-radius: 6px;
+    min-height: 24px;
+}
+QScrollBar::handle:vertical:hover { background: rgba(156, 163, 175, 0.35); }
+QScrollBar::add-line:vertical, QScrollBar::sub-line:vertical { height: 0px; }
+QScrollBar::add-page:vertical, QScrollBar::sub-page:vertical { background: none; }
+
+/* Labels */
+QLabel#InsightTitle {
+    font-size: 18px;
+    font-weight: 800;
+    color: #E5E7EB;
+    background: transparent;
+}
+
+QLabel#InsightText {
+    font-size: 15px;
+    color: #D1D5DB;
+    background: transparent;
+}
+
+QLabel#SectionTitle {
+    font-size: 26px;
+    font-weight: 900;
+    color: #F3F4F6;
+    background: transparent;
+    padding: 12px 0px;
+}
+
+QLabel#SectionSubtitle {
+    font-size: 16px;
+    color: #9CA3AF;
+    background: transparent;
+    padding: 4px 0px;
+    font-weight: 600;
+}
+
+QLabel#ChartTitle {
+    font-size: 20px;
+    font-weight: 800;
+    color: #E5E7EB;
+    background: transparent;
+    padding: 8px 0px;
+}
+
+/* Chart Containers */
+QFrame#ChartContainer {
+    background: qlineargradient(x1:0, y1:0, x2:0, y2:1,
+        stop:0 #141B2E,
+        stop:1 #0F1424);
+    border: 2px solid #1F2937;
+    border-radius: 18px;
+}
+
+QFrame#ChartContainer:hover {
+    border: 2px solid rgba(59, 130, 246, 0.40);
+}
+
+/* Upload Area */
+QFrame#UploadArea {
+    background: qlineargradient(x1:0, y1:0, x2:0, y2:1,
+        stop:0 rgba(59, 130, 246, 0.08),
+        stop:1 rgba(99, 102, 241, 0.08));
+    border: 3px dashed rgba(59, 130, 246, 0.40);
+    border-radius: 18px;
+    padding: 40px;
+}
+
+QFrame#UploadArea:hover {
+    background: qlineargradient(x1:0, y1:0, x2:0, y2:1,
+        stop:0 rgba(59, 130, 246, 0.14),
+        stop:1 rgba(99, 102, 241, 0.14));
+    border: 3px dashed rgba(59, 130, 246, 0.65);
+}
+
+QLabel#UploadIcon {
+    font-size: 64px;
+    color: #3B82F6;
+    background: transparent;
+}
+
+QLabel#UploadTitle {
+    font-size: 22px;
+    font-weight: 800;
+    color: #E5E7EB;
+    background: transparent;
+}
+
+QLabel#UploadText {
+    font-size: 16px;
+    color: #9CA3AF;
+    background: transparent;
+}

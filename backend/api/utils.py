@@ -74,6 +74,7 @@ def parse_and_analyze_csv(uploaded_file, *, return_df: bool = False):
     avg_flowrate = float(df['Flowrate'].mean()) if total_equipment else 0.0
     avg_pressure = float(df['Pressure'].mean()) if total_equipment else 0.0
     avg_temperature = float(df['Temperature'].mean()) if total_equipment else 0.0
+    max_temperature = float(df['Temperature'].max()) if total_equipment else 0.0
 
     type_distribution_series = df['Type'].astype(str).value_counts(dropna=False)
     equipment_type_distribution = {str(k): int(v) for k, v in type_distribution_series.to_dict().items()}
@@ -93,6 +94,7 @@ def parse_and_analyze_csv(uploaded_file, *, return_df: bool = False):
         'average_flowrate': avg_flowrate,
         'average_pressure': avg_pressure,
         'average_temperature': avg_temperature,
+        'max_temperature': max_temperature,
         'equipment_type_distribution': equipment_type_distribution,
         'avg_metrics_per_type': avg_metrics_per_type,
     }

@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import AnimatedKPICard from '../components/AnimatedKPICard';
-import ChartGrid from '../components/ChartGrid';
+import ChartPanel from '../components/ChartPanel';
 import InsightCard from '../components/InsightCard';
 import FloatingButton from '../components/FloatingButton';
 import LoadingSpinner from '../components/LoadingSpinner';
@@ -128,16 +128,33 @@ const Dashboard = () => {
 
     return (
         <div className="max-w-7xl mx-auto px-6 py-8 pt-24 pb-24">
-            {/* Header */}
+            {/* Premium Header with gradient */}
             <motion.div
                 initial={{ opacity: 0, y: -20 }}
                 animate={{ opacity: 1, y: 0 }}
-                className="mb-8"
+                className="mb-10"
             >
-                <h1 className="text-5xl font-bold mb-3 text-gray-100 font-heading">Analytics Dashboard</h1>
-                <p className="text-gray-400 text-lg">
-                    Real-time insights from your chemical equipment data
-                </p>
+                <div className="flex items-center justify-between">
+                    <div>
+                        <h1 className="text-6xl font-black mb-3 bg-gradient-to-r from-cyan-400 via-blue-400 to-purple-400 
+                                     bg-clip-text text-transparent">
+                            Analytics Dashboard
+                        </h1>
+                        <p className="text-gray-400 text-lg font-light">
+                            Real-time insights from your chemical equipment data • {summary.total_equipment} devices monitored
+                        </p>
+                    </div>
+                    <div className="text-7xl filter drop-shadow-2xl">
+                        📊
+                    </div>
+                </div>
+                {/* Accent line */}
+                <motion.div
+                    initial={{ width: 0 }}
+                    animate={{ width: '100%' }}
+                    transition={{ delay: 0.3, duration: 1 }}
+                    className="h-1 mt-4 rounded-full bg-gradient-to-r from-cyan-500 via-blue-500 to-purple-500"
+                />
             </motion.div>
 
             {/* KPI Cards */}
@@ -145,7 +162,7 @@ const Dashboard = () => {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.1 }}
-                className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8"
+                className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-10"
             >
                 <AnimatedKPICard
                     title="Total Equipment"
@@ -182,12 +199,22 @@ const Dashboard = () => {
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: 0.2 }}
-                    className="mb-8"
+                    className="mb-10"
                 >
-                    <h2 className="text-2xl font-semibold mb-4 text-gray-100">Key Insights</h2>
-                    <div className="grid grid-cols-1 md:grid-cols-6 lg:grid-cols-3 gap-4">
-                        {insights.map((insight, index) => (
-                            <InsightCard key={index} {...insight} />
+                    <div className="flex items-center gap-3 mb-6">
+                        <h2 className="text-3xl font-black text-gray-100">AI Insights</h2>
+                        <div className="h-px flex-1 bg-gradient-to-r from-cyan-500/50 to-transparent"></div>
+                    </div>
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                        {insights.map((insight, idx) => (
+                            <motion.div
+                                key={idx}
+                                initial={{ opacity: 0, scale: 0.9 }}
+                                animate={{ opacity: 1, scale: 1 }}
+                                transition={{ delay: 0.4 + idx * 0.1 }}
+                            >
+                                <InsightCard {...insight} />
+                            </motion.div>
                         ))}
                     </div>
                 </motion.div>
@@ -197,16 +224,15 @@ const Dashboard = () => {
             <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.3 }}
-                className="mb-8"
+                transition={{ delay: 0.5 }}
+                className="mb-10"
             >
-                <h2 className="text-2xl font-semibold mb-4 text-gray-100">Visualizations</h2>
-                <ChartGrid summary={summary} />
+                <ChartPanel summary={summary} />
             </motion.div>
 
-            {/* Floating Action Buttons */}
+            {/* Floating Action Button */}
             {datasetId && (
-                <FloatingButton onClick={handleDownloadPDF} icon="📄">
+                <FloatingButton onClick={handleDownloadPDF} icon="📥">
                     Download Report
                 </FloatingButton>
             )}
