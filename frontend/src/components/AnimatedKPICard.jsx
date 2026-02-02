@@ -57,14 +57,13 @@ const AnimatedKPICard = ({ title, value, unit = '', icon, color = 'cyan', trend 
             <div className={`glass-card p-6 ${colorClasses[color]} border-2 backdrop-blur-xl relative overflow-hidden group`}>
                 {/* Gradient Orb */}
                 <div className={`absolute -top-12 -right-12 w-32 h-32 bg-gradient-to-br ${iconColorClasses[color]} rounded-full blur-2xl opacity-50 group-hover:opacity-70 transition-opacity duration-500`} />
-                
+
                 <div className="relative z-10">
                     <div className="flex items-start justify-between mb-4">
                         <div className="text-4xl filter drop-shadow-lg">{icon}</div>
                         {trend && (
-                            <span className={`text-xs px-2 py-1 rounded-full ${
-                                trend > 0 ? 'bg-emerald-900/40 text-emerald-400' : 'bg-red-900/40 text-red-400'
-                            }`}>
+                            <span className={`text-xs px-2 py-1 rounded-full ${trend > 0 ? 'bg-emerald-900/40 text-emerald-400' : 'bg-red-900/40 text-red-400'
+                                }`}>
                                 {trend > 0 ? '↑' : '↓'} {Math.abs(trend)}%
                             </span>
                         )}

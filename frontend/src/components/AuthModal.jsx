@@ -111,7 +111,7 @@ const AuthModal = ({ isOpen, onClose, initialMode = 'login' }) => {
                         <div className="glass-card p-8 relative overflow-hidden max-h-[90vh] overflow-y-auto">
                             {/* Decorative Elements */}
                             <div className="absolute top-0 right-0 w-64 h-64 bg-gradient-to-br from-cyan-500/20 to-blue-500/20 rounded-full blur-3xl -z-10" />
-                            
+
                             {/* Header */}
                             <div className="text-center mb-6">
                                 <h2 className="text-3xl font-bold mb-2 text-gray-100">

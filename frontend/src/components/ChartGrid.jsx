@@ -144,7 +144,7 @@ const ChartGrid = ({ summary }) => {
                                 <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
                             ))}
                         </Pie>
-                        <Tooltip 
+                        <Tooltip
                             contentStyle={currentTooltipStyle}
                         />
                     </PieChart>
