@@ -1,0 +1,183 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+    html {
+        @apply scroll-smooth;
+    }
+
+    body {
+        @apply min-h-screen antialiased transition-colors duration-300;
+        font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+        @apply bg-slate-950 text-gray-100;
+        background-image: 
+            radial-gradient(circle at 20% 20%, rgba(6, 182, 212, 0.08) 0%, transparent 50%),
+            radial-gradient(circle at 80% 80%, rgba(59, 130, 246, 0.08) 0%, transparent 50%),
+            linear-gradient(to right, rgba(71, 85, 105, 0.3) 1px, transparent 1px),
+            linear-gradient(to bottom, rgba(71, 85, 105, 0.3) 1px, transparent 1px);
+        background-size: 100% 100%, 100% 100%, 40px 40px, 40px 40px;
+        background-position: 0 0, 0 0, 0 0, 0 0;
+    }
+
+    /* Add subtle noise texture */
+    body::before {
+        content: '';
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        opacity: 0.015;
+        z-index: 0;
+        pointer-events: none;
+        background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+    }
+
+    h1, h2, h3, h4, h5, h6 {
+        font-family: 'Space Grotesk', sans-serif;
+        font-weight: 600;
+        @apply text-gray-900 dark:text-gray-100;
+    }
+}
+
+@layer components {
+    /* Glass Card - Aurora Style */
+    .glass-card {
+        @apply bg-slate-900/60 backdrop-blur-xl rounded-2xl shadow-lg border border-slate-700/50 transition-all duration-300;
+    }
+
+    .glass-card-hover {
+        @apply glass-card hover:border-cyan-500/60 hover:shadow-xl hover:shadow-cyan-500/20 hover:-translate-y-1;
+    }
+
+    /* Premium Buttons */
+    .premium-button {
+        @apply relative overflow-hidden bg-gradient-to-r from-cyan-500 to-blue-500 hover:from-cyan-600 hover:to-blue-600 text-white rounded-xl px-6 py-3 font-semibold transition-all duration-300 shadow-lg shadow-cyan-500/30 hover:shadow-xl hover:shadow-cyan-500/40 active:scale-95;
+    }
+
+    .premium-button::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+        transition: left 0.5s;
+    }
+
+    .premium-button:hover::before {
+        left: 100%;
+    }
+
+    .glass-button {
+        @apply relative overflow-hidden bg-gradient-to-r from-cyan-500 to-blue-500 hover:from-cyan-600 hover:to-blue-600 text-white rounded-xl px-6 py-3 font-semibold transition-all duration-300 shadow-lg shadow-cyan-500/30 hover:shadow-xl hover:shadow-cyan-500/40 active:scale-95;
+    }
+
+    .glass-button::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+        transition: left 0.5s;
+    }
+
+    .glass-button:hover::before {
+        left: 100%;
+    }
+
+    .glass-button-outline {
+        @apply bg-transparent border-2 border-cyan-500 text-white hover:bg-cyan-500/10 hover:border-cyan-400 rounded-xl px-6 py-3 font-semibold transition-all duration-300 active:scale-95;
+    }
+
+    /* Inputs */
+    .glass-input {
+        @apply bg-slate-900/50 backdrop-blur-sm rounded-xl px-4 py-3 border border-slate-600 focus:border-cyan-500 focus:ring-2 focus:ring-cyan-500/20 outline-none transition-all placeholder-gray-500 text-gray-100;
+    }
+
+    /* Text Gradients */
+    .gradient-text {
+        @apply bg-gradient-to-r from-cyan-400 to-blue-400 bg-clip-text text-transparent;
+    }
+
+    /* KPI Cards */
+    .kpi-card {
+        @apply glass-card p-6 hover:border-blue-200 dark:hover:border-cyan-500/40 transition-all duration-300 cursor-default hover:shadow-lg hover:shadow-blue-500/10 dark:hover:shadow-cyan-500/20;
+    }
+
+    /* Floating Button */
+    .floating-button {
+        @apply fixed bottom-8 right-8 glass-button shadow-2xl shadow-cyan-500/30 z-50;
+    }
+
+    /* Modal */
+    .modal-overlay {
+        @apply fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center p-4;
+    }
+
+    /* Status Badges */
+    .status-badge {
+        @apply px-3 py-1 rounded-full text-xs font-semibold uppercase tracking-wide backdrop-blur-sm;
+    }
+
+    .status-normal {
+        @apply status-badge bg-emerald-500/20 text-emerald-400 border border-emerald-500/40;
+    }
+
+    .status-warning {
+        @apply status-badge bg-amber-500/20 text-amber-400 border border-amber-500/40;
+    }
+
+    .status-critical {
+        @apply status-badge bg-red-500/20 text-red-400 border border-red-500/40;
+    }
+
+    /* Animations */
+    @keyframes shimmer {
+        0% { background-position: -1000px 0; }
+        100% { background-position: 1000px 0; }
+    }
+
+    .shimmer {
+        animation: shimmer 3s infinite;
+        background: linear-gradient(to right, transparent 0%, rgba(255,255,255,0.1) 50%, transparent 100%);
+        background-size: 1000px 100%;
+    }
+
+    @keyframes float {
+        0%, 100% { transform: translateY(0px); }
+        50% { transform: translateY(-20px); }
+    }
+
+    .float-animation {
+        animation: float 6s ease-in-out infinite;
+    }
+
+    /* Scrollbar Styling */
+    ::-webkit-scrollbar {
+        width: 10px;
+        height: 10px;
+    }
+
+    ::-webkit-scrollbar-track {
+        @apply bg-slate-900;
+    }
+
+    ::-webkit-scrollbar-thumb {
+        @apply bg-slate-700 rounded-full hover:bg-slate-600;
+    }
+}
+
+@layer utilities {
+    .text-balance {
+        text-wrap: balance;
+    }
+}

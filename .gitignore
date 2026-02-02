@@ -1,0 +1,13 @@
+# Django media & uploads
+backend/media/
+
+# SQLite DB
+backend/db.sqlite3
+
+# Virtual env
+backend.venv/
+.venv/
+
+# Python cache
+__pycache__/
+*.pyc
