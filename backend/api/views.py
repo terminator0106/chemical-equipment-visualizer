@@ -138,9 +138,84 @@ class DatasetSummaryView(APIView):
 			dataset = Dataset.objects.get(id=dataset_id, user=request.user)
 		except Dataset.DoesNotExist:
 			return Response({'detail': 'Not found.'}, status=status.HTTP_404_NOT_FOUND)
-
+		# Check if a limit parameter is provided
+		limit = request.query_params.get('limit')
+		if limit:
+			try:
+				limit = int(limit)
+				# Get limited records and recalculate summary
+				records = EquipmentRecord.objects.filter(dataset=dataset).order_by('id')[:limit]
+				if records:
+					import pandas as pd
+					data = [{
+						'Equipment Name': r.equipment_name,
+						'Type': r.type,
+						'Flowrate': r.flowrate,
+						'Pressure': r.pressure,
+						'Temperature': r.temperature,
+					} for r in records]
+					df = pd.DataFrame(data)
+					
+					total_equipment = len(df)
+					avg_flowrate = float(df['Flowrate'].mean())
+					avg_pressure = float(df['Pressure'].mean())
+					avg_temperature = float(df['Temperature'].mean())
+					max_temperature = float(df['Temperature'].max())
+					
+					type_distribution_series = df['Type'].astype(str).value_counts(dropna=False)
+					equipment_type_distribution = {str(k): int(v) for k, v in type_distribution_series.to_dict().items()}
+					
+					avg_metrics_per_type = {}
+					for equip_type in df['Type'].unique():
+						type_df = df[df['Type'] == equip_type]
+						avg_metrics_per_type[str(equip_type)] = {
+							'avg_flowrate': float(type_df['Flowrate'].mean()),
+							'avg_pressure': float(type_df['Pressure'].mean()),
+							'avg_temperature': float(type_df['Temperature'].mean()),
+						}
+					
+					limited_summary = {
+						'total_equipment': total_equipment,
+						'average_flowrate': avg_flowrate,
+						'average_pressure': avg_pressure,
+						'average_temperature': avg_temperature,
+						'max_temperature': max_temperature,
+						'equipment_type_distribution': equipment_type_distribution,
+						'avg_metrics_per_type': avg_metrics_per_type,
+					}
+					return Response({'dataset_id': dataset.id, 'summary': limited_summary})
+			except (ValueError, TypeError):
+				pass
 		return Response({'dataset_id': dataset.id, 'summary': dataset.summary})
 
+class DatasetCSVDataView(APIView):
+	authentication_classes = [TokenAuthentication]
+	permission_classes = [IsAuthenticated]
+
+	def get(self, request, dataset_id: int):
+		try:
+			dataset = Dataset.objects.get(id=dataset_id, user=request.user)
+		except Dataset.DoesNotExist:
+			return Response({'detail': 'Not found.'}, status=status.HTTP_404_NOT_FOUND)
+
+		# Get limit parameter (default to all records)
+		limit = request.query_params.get('limit')
+		records_query = EquipmentRecord.objects.filter(dataset=dataset).order_by('id')
+		total_count = records_query.count()
+		
+		if limit:
+			try:
+				limit = int(limit)
+				records_query = records_query[:limit]
+			except (ValueError, TypeError):
+				pass
+		
+		records = records_query.values('equipment_name', 'type', 'flowrate', 'pressure', 'temperature')
+		return Response({
+			'dataset_id': dataset.id,
+			'total_count': total_count,
+			'data': list(records)
+		})
 
 class HistoryView(APIView):
 	authentication_classes = [TokenAuthentication]

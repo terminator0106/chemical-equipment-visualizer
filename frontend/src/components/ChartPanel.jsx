@@ -98,7 +98,7 @@ const ChartPanel = ({ summary }) => {
     const charts = [
         {
             id: 0,
-            title: 'Equipment Type Distribution',
+            title: 'Distribution (Type) ',
             icon: '📊',
             component: (
                 <ResponsiveContainer width="100%" height={450}>
@@ -133,7 +133,7 @@ const ChartPanel = ({ summary }) => {
         },
         {
             id: 1,
-            title: 'Equipment Share by Type',
+            title: 'Type (Share by Type)',
             icon: '🥧',
             component: (
                 <div>
@@ -162,7 +162,18 @@ const ChartPanel = ({ summary }) => {
                                     />
                                 ))}
                             </Pie>
-                            <Tooltip contentStyle={currentTooltipStyle} />
+                            <Tooltip
+                                contentStyle={{
+                                    ...currentTooltipStyle,
+                                    color: isDark ? '#f1f5f9' : '#111827'
+                                }}
+                                itemStyle={{
+                                    color: isDark ? '#f1f5f9' : '#111827'
+                                }}
+                                labelStyle={{
+                                    color: isDark ? '#f1f5f9' : '#111827'
+                                }}
+                            />
                             <Legend
                                 verticalAlign="bottom"
                                 height={36}
@@ -223,7 +234,7 @@ const ChartPanel = ({ summary }) => {
         },
         {
             id: 3,
-            title: 'Equipment Metrics Trend',
+            title: 'Metrics Trend',
             icon: '📉',
             component: (
                 <ResponsiveContainer width="100%" height={450}>
@@ -240,7 +251,10 @@ const ChartPanel = ({ summary }) => {
                             tick={{ fill: isDark ? '#9ca3af' : '#6b7280' }}
                             {...chartConfig}
                         />
-                        <Tooltip contentStyle={currentTooltipStyle} />
+                        <Tooltip
+                            contentStyle={currentTooltipStyle}
+                            formatter={(value) => typeof value === 'number' ? value.toFixed(3) : value}
+                        />
                         <Legend
                             wrapperStyle={{ paddingTop: '20px', color: isDark ? '#f1f5f9' : '#111827' }}
                             iconType="circle"
@@ -278,7 +292,7 @@ const ChartPanel = ({ summary }) => {
         },
         {
             id: 4,
-            title: 'Equipment Performance Profile',
+            title: 'Performance Profile',
             icon: '🔄',
             component: (
                 <ResponsiveContainer width="100%" height={450}>

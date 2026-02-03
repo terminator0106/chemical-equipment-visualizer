@@ -65,23 +65,23 @@ const History = () => {
     }
 
     return (
-        <div className="max-w-7xl mx-auto px-6 py-8 pt-24 pb-24">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 py-6 sm:py-8 pt-20 sm:pt-24 pb-16 sm:pb-24">
             <motion.div
                 initial={{ opacity: 0, y: -20 }}
                 animate={{ opacity: 1, y: 0 }}
-                className="mb-10"
+                className="mb-8 sm:mb-10"
             >
-                <div className="flex items-center justify-between">
+                <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
                     <div>
-                        <h1 className="text-6xl font-black mb-3 bg-gradient-to-r from-cyan-400 via-blue-400 to-purple-400 
+                        <h1 className="text-4xl sm:text-5xl lg:text-6xl font-black mb-2 sm:mb-3 bg-gradient-to-r from-cyan-400 via-blue-400 to-purple-400 
                                      bg-clip-text text-transparent">
                             Upload History
                         </h1>
-                        <p className="text-gray-400 text-lg font-light">
+                        <p className="text-gray-400 text-base sm:text-lg font-light">
                             View and manage your uploaded datasets • Last {datasets.length} uploads
                         </p>
                     </div>
-                    <div className="text-7xl filter drop-shadow-2xl">
+                    <div className="text-5xl sm:text-7xl filter drop-shadow-2xl">
                         📚
                     </div>
                 </div>
@@ -133,28 +133,28 @@ const History = () => {
                             animate={{ opacity: 1, x: 0 }}
                             transition={{ delay: index * 0.1 }}
                         >
-                            <GlassCard hover className="p-8 backdrop-blur-xl relative overflow-hidden">
+                            <GlassCard hover className="p-4 sm:p-8 backdrop-blur-xl relative overflow-hidden">
                                 {/* Decorative gradient */}
                                 <div className="absolute -top-10 -right-10 w-40 h-40 bg-gradient-to-br from-cyan-500/10 to-blue-500/10 
                                               rounded-full blur-3xl pointer-events-none"></div>
 
-                                <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-6 relative z-10">
+                                <div className="flex flex-col gap-4 sm:gap-6 relative z-10">
                                     <div className="flex-1">
-                                        <div className="flex items-center gap-4 mb-4">
+                                        <div className="flex items-start gap-3 sm:gap-4 mb-3 sm:mb-4">
                                             <motion.span
                                                 whileHover={{ rotate: [0, -10, 10, 0] }}
                                                 transition={{ duration: 0.5 }}
-                                                className="text-4xl filter drop-shadow-lg"
+                                                className="text-3xl sm:text-4xl filter drop-shadow-lg flex-shrink-0"
                                             >
                                                 📊
                                             </motion.span>
-                                            <div>
-                                                <h3 className="text-2xl font-black text-gray-100 mb-1">
+                                            <div className="flex-1 min-w-0">
+                                                <h3 className="text-xl sm:text-2xl font-black text-gray-100 mb-1 break-words">
                                                     {dataset.file_name.split('/').pop()}
                                                 </h3>
-                                                <div className="flex items-center gap-2">
-                                                    <span className="text-sm text-gray-400">📅 {formatDate(dataset.uploaded_at)}</span>
-                                                    <span className="px-3 py-1 rounded-full bg-emerald-500/20 text-emerald-300 
+                                                <div className="flex flex-wrap items-center gap-2">
+                                                    <span className="text-xs sm:text-sm text-gray-400">📅 {formatDate(dataset.uploaded_at)}</span>
+                                                    <span className="px-2 sm:px-3 py-1 rounded-full bg-emerald-500/20 text-emerald-300 
                                                                    border border-emerald-500/40 text-xs font-bold uppercase">
                                                         Active
                                                     </span>
@@ -163,7 +163,7 @@ const History = () => {
                                         </div>
 
                                         {/* Premium Quick Stats */}
-                                        <div className="flex flex-wrap gap-3">
+                                        <div className="grid grid-cols-2 sm:flex sm:flex-wrap gap-2 sm:gap-3">
                                             <motion.div
                                                 whileHover={{ scale: 1.05 }}
                                                 className="px-5 py-3 rounded-xl bg-gradient-to-br from-blue-500/20 to-blue-600/10 

@@ -136,6 +136,16 @@ class MainWindow(QtWidgets.QMainWindow):
 
     def _build_login(self) -> QtWidgets.QWidget:
         container = QtWidgets.QWidget()
+        container.setObjectName("AuthContainer")
+        container.setStyleSheet("""
+            QWidget#AuthContainer {
+                background: qlineargradient(x1:0, y1:0, x2:1, y2:1,
+                    stop:0 #0F1629,
+                    stop:0.3 #0D1321,
+                    stop:0.7 #0D1321,
+                    stop:1 #0F1629);
+            }
+        """)
         layout = QtWidgets.QVBoxLayout(container)
         layout.setContentsMargins(60, 60, 60, 60)
 

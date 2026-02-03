@@ -66,8 +66,18 @@ export const datasetAPI = {
         });
         return response.data;
     },
-    getSummary: async (datasetId) => {
-        const response = await api.get(`/summary/${datasetId}/`);
+    getSummary: async (datasetId, limit = null) => {
+        const url = limit
+            ? `/summary/${datasetId}/?limit=${limit}`
+            : `/summary/${datasetId}/`;
+        const response = await api.get(url);
+        return response.data;
+    },
+    getCSVData: async (datasetId, limit = null) => {
+        const url = limit
+            ? `/csv-data/${datasetId}/?limit=${limit}`
+            : `/csv-data/${datasetId}/`;
+        const response = await api.get(url);
         return response.data;
     },
     getHistory: async () => {

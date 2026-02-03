@@ -33,56 +33,122 @@ class LoginWidget(QtWidgets.QWidget):
         super().__init__(parent)
         self.api = api
         self._worker: Optional[ApiWorker] = None
+        self.setStyleSheet("background: transparent;")
 
+        # Header
         title = QtWidgets.QLabel("Welcome back")
-        title.setObjectName("H1")
-        title.setStyleSheet("font-size: 38px; font-weight: 900; background: transparent; color: #E5E7EB;")
+        title.setAlignment(QtCore.Qt.AlignLeft)
+        title.setStyleSheet("font-size: 42px; font-weight: 900; background: transparent; color: #E5E7EB;")
+        
         subtitle = QtWidgets.QLabel("Sign in to access your datasets and reports")
-        subtitle.setObjectName("Muted")
-        subtitle.setStyleSheet("font-size: 18px; background: transparent; color: #9CA3AF;")
+        subtitle.setAlignment(QtCore.Qt.AlignLeft)
+        subtitle.setStyleSheet("font-size: 16px; background: transparent; color: #9CA3AF; font-weight: 400;")
 
+        # Email/Username field
+        email_label = QtWidgets.QLabel("Email / Username")
+        email_label.setStyleSheet("background: transparent; color: #9CA3AF; font-size: 14px; font-weight: 600; margin-bottom: 8px;")
+        
         self.user_input = QtWidgets.QLineEdit()
+        self.user_input.setObjectName("AuthInput")
         self.user_input.setPlaceholderText("Email or Username")
-        self.user_input.setMinimumHeight(56)
-        self.user_input.setStyleSheet("font-size: 17px;")
+        self.user_input.setMinimumHeight(40)
+        self.user_input.setStyleSheet("""
+            QLineEdit#AuthInput {
+                font-size: 14px;
+                padding: 10px 14px;
+                border: 2px solid #1F2937;
+                border-radius: 12px;
+                background: rgba(17, 24, 39, 0.4);
+                color: #E5E7EB;
+            }
+            QLineEdit#AuthInput:focus {
+                border: 2px solid #3B82F6;
+                background: rgba(17, 24, 39, 0.6);
+            }
+        """)
 
+        # Password field
+        password_label = QtWidgets.QLabel("Password")
+        password_label.setStyleSheet("background: transparent; color: #9CA3AF; font-size: 14px; font-weight: 600; margin-bottom: 8px;")
+        
         self.pass_input = QtWidgets.QLineEdit()
+        self.pass_input.setObjectName("AuthInput")
         self.pass_input.setEchoMode(QtWidgets.QLineEdit.Password)
         self.pass_input.setPlaceholderText("Password")
-        self.pass_input.setMinimumHeight(56)
-        self.pass_input.setStyleSheet("font-size: 17px;")
+        self.pass_input.setMinimumHeight(40)
+        self.pass_input.setStyleSheet("""
+            QLineEdit#AuthInput {
+                font-size: 14px;
+                padding: 10px 14px;
+                border: 2px solid #1F2937;
+                border-radius: 12px;
+                background: rgba(17, 24, 39, 0.4);
+                color: #E5E7EB;
+            }
+            QLineEdit#AuthInput:focus {
+                border: 2px solid #3B82F6;
+                background: rgba(17, 24, 39, 0.6);
+            }
+        """)
 
+        # Error label
         self.error_label = QtWidgets.QLabel("")
-        self.error_label.setObjectName("Muted")
         self.error_label.setWordWrap(True)
-        self.error_label.setStyleSheet("font-size: 14px;")
+        self.error_label.setStyleSheet("font-size: 13px; color: #EF4444; background: transparent;")
 
+        # Login button
         self.login_btn = QtWidgets.QPushButton("Login")
         self.login_btn.setObjectName("PrimaryButton")
-        self.login_btn.setMinimumHeight(52)
+        self.login_btn.setMinimumHeight(54)
+        self.login_btn.setStyleSheet("""
+            QPushButton {
+                background: qlineargradient(x1:0, y1:0, x2:1, y2:0,
+                    stop:0 #3B82F6,
+                    stop:1 #2563EB);
+                color: #ffffff;
+                border: 2px solid rgba(59, 130, 246, 0.70);
+                border-radius: 12px;
+                font-size: 16px;
+                font-weight: 700;
+                padding: 14px;
+            }
+            QPushButton:hover {
+                background: qlineargradient(x1:0, y1:0, x2:1, y2:0,
+                    stop:0 #2F6FE0,
+                    stop:1 #1D4ED8);
+                border: 2px solid rgba(59, 130, 246, 0.85);
+            }
+            QPushButton:pressed {
+                background: #2A63C8;
+            }
+        """)
+        self.login_btn.setCursor(QtCore.Qt.PointingHandCursor)
         self.login_btn.clicked.connect(self._on_login)
 
-        form = QtWidgets.QFormLayout()
-        form.setLabelAlignment(QtCore.Qt.AlignLeft)
-        
-        email_label = QtWidgets.QLabel("Email / Username")
-        email_label.setStyleSheet("background: transparent; color: #9CA3AF; font-size: 15px; font-weight: 600;")
-        password_label = QtWidgets.QLabel("Password")
-        password_label.setStyleSheet("background: transparent; color: #9CA3AF; font-size: 15px; font-weight: 600;")
-        
-        form.addRow(email_label, self.user_input)
-        form.addRow(password_label, self.pass_input)
-
+        # Vertical layout
         layout = QtWidgets.QVBoxLayout(self)
         layout.setContentsMargins(0, 0, 0, 0)
+        layout.setSpacing(0)
+        
         layout.addWidget(title)
+        layout.addSpacing(6)
         layout.addWidget(subtitle)
-        layout.addSpacing(10)
-        layout.addLayout(form)
+        layout.addSpacing(36)
+        
+        layout.addWidget(email_label)
         layout.addSpacing(8)
+        layout.addWidget(self.user_input)
+        layout.addSpacing(24)
+        
+        layout.addWidget(password_label)
+        layout.addSpacing(8)
+        layout.addWidget(self.pass_input)
+        layout.addSpacing(12)
+        
         layout.addWidget(self.error_label)
-        layout.addSpacing(8)
+        layout.addSpacing(24)
         layout.addWidget(self.login_btn)
+        layout.addSpacing(4)
 
     def _set_loading(self, loading: bool) -> None:
         self.login_btn.setDisabled(loading)
@@ -122,76 +188,140 @@ class SignupWidget(QtWidgets.QWidget):
         super().__init__(parent)
         self.api = api
         self._worker: Optional[ApiWorker] = None
+        self.setStyleSheet("background: transparent;")
 
+        # Header
         title = QtWidgets.QLabel("Create your account")
-        title.setObjectName("H1")
-        title.setStyleSheet("font-size: 38px; font-weight: 900; background: transparent; color: #E5E7EB;")
+        title.setAlignment(QtCore.Qt.AlignLeft)
+        title.setStyleSheet("font-size: 42px; font-weight: 900; background: transparent; color: #E5E7EB;")
+        
         subtitle = QtWidgets.QLabel("Sign up and start uploading CSVs")
-        subtitle.setObjectName("Muted")
-        subtitle.setStyleSheet("font-size: 18px; background: transparent; color: #9CA3AF;")
+        subtitle.setAlignment(QtCore.Qt.AlignLeft)
+        subtitle.setStyleSheet("font-size: 16px; background: transparent; color: #9CA3AF; font-weight: 400;")
 
+        # Input field styling
+        input_style = """
+            QLineEdit#AuthInput {
+                font-size: 14px;
+                padding: 10px 14px;
+                border: 2px solid #1F2937;
+                border-radius: 12px;
+                background: rgba(17, 24, 39, 0.4);
+                color: #E5E7EB;
+            }
+            QLineEdit#AuthInput:focus {
+                border: 2px solid #3B82F6;
+                background: rgba(17, 24, 39, 0.6);
+            }
+        """
+        label_style = "background: transparent; color: #9CA3AF; font-size: 14px; font-weight: 600; margin-bottom: 8px;"
+
+        # Name field
+        name_label = QtWidgets.QLabel("Name")
+        name_label.setStyleSheet(label_style)
         self.name_input = QtWidgets.QLineEdit()
+        self.name_input.setObjectName("AuthInput")
         self.name_input.setPlaceholderText("Full name")
-        self.name_input.setMinimumHeight(56)
-        self.name_input.setStyleSheet("font-size: 17px;")
+        self.name_input.setMinimumHeight(40)
+        self.name_input.setStyleSheet(input_style)
 
+        # Email field
+        email_label = QtWidgets.QLabel("Email")
+        email_label.setStyleSheet(label_style)
         self.email_input = QtWidgets.QLineEdit()
+        self.email_input.setObjectName("AuthInput")
         self.email_input.setPlaceholderText("Email")
-        self.email_input.setMinimumHeight(56)
-        self.email_input.setStyleSheet("font-size: 17px;")
+        self.email_input.setMinimumHeight(40)
+        self.email_input.setStyleSheet(input_style)
 
+        # Password field
+        password_label = QtWidgets.QLabel("Password")
+        password_label.setStyleSheet(label_style)
         self.pass_input = QtWidgets.QLineEdit()
+        self.pass_input.setObjectName("AuthInput")
         self.pass_input.setEchoMode(QtWidgets.QLineEdit.Password)
         self.pass_input.setPlaceholderText("Password")
-        self.pass_input.setMinimumHeight(56)
-        self.pass_input.setStyleSheet("font-size: 17px;")
+        self.pass_input.setMinimumHeight(40)
+        self.pass_input.setStyleSheet(input_style)
 
+        # Confirm password field
+        confirm_label = QtWidgets.QLabel("Confirm Password")
+        confirm_label.setStyleSheet(label_style)
         self.confirm_input = QtWidgets.QLineEdit()
+        self.confirm_input.setObjectName("AuthInput")
         self.confirm_input.setEchoMode(QtWidgets.QLineEdit.Password)
         self.confirm_input.setPlaceholderText("Confirm password")
-        self.confirm_input.setMinimumHeight(56)
-        self.confirm_input.setStyleSheet("font-size: 17px;")
+        self.confirm_input.setMinimumHeight(40)
+        self.confirm_input.setStyleSheet(input_style)
 
+        # Error label
         self.error_label = QtWidgets.QLabel("")
-        self.error_label.setObjectName("Muted")
         self.error_label.setWordWrap(True)
-        self.error_label.setStyleSheet("font-size: 14px;")
+        self.error_label.setStyleSheet("font-size: 13px; color: #EF4444; background: transparent;")
 
+        # Signup button
         self.signup_btn = QtWidgets.QPushButton("Create account")
         self.signup_btn.setObjectName("PrimaryButton")
-        self.signup_btn.setMinimumHeight(52)
+        self.signup_btn.setMinimumHeight(54)
+        self.signup_btn.setStyleSheet("""
+            QPushButton {
+                background: qlineargradient(x1:0, y1:0, x2:1, y2:0,
+                    stop:0 #3B82F6,
+                    stop:1 #2563EB);
+                color: #ffffff;
+                border: 2px solid rgba(59, 130, 246, 0.70);
+                border-radius: 12px;
+                font-size: 16px;
+                font-weight: 700;
+                padding: 14px;
+            }
+            QPushButton:hover {
+                background: qlineargradient(x1:0, y1:0, x2:1, y2:0,
+                    stop:0 #2F6FE0,
+                    stop:1 #1D4ED8);
+                border: 2px solid rgba(59, 130, 246, 0.85);
+            }
+            QPushButton:pressed {
+                background: #2A63C8;
+            }
+        """)
+        self.signup_btn.setCursor(QtCore.Qt.PointingHandCursor)
         self.signup_btn.clicked.connect(self._on_signup)
 
-        form = QtWidgets.QFormLayout()
-        form.setLabelAlignment(QtCore.Qt.AlignLeft)
-        form.setFormAlignment(QtCore.Qt.AlignTop)
-        form.setHorizontalSpacing(14)
-        form.setVerticalSpacing(12)
-        
-        name_label = QtWidgets.QLabel("Name")
-        name_label.setStyleSheet("background: transparent; color: #9CA3AF; font-size: 15px; font-weight: 600;")
-        email_label = QtWidgets.QLabel("Email")
-        email_label.setStyleSheet("background: transparent; color: #9CA3AF; font-size: 15px; font-weight: 600;")
-        password_label = QtWidgets.QLabel("Password")
-        password_label.setStyleSheet("background: transparent; color: #9CA3AF; font-size: 15px; font-weight: 600;")
-        confirm_label = QtWidgets.QLabel("Confirm")
-        confirm_label.setStyleSheet("background: transparent; color: #9CA3AF; font-size: 15px; font-weight: 600;")
-        
-        form.addRow(name_label, self.name_input)
-        form.addRow(email_label, self.email_input)
-        form.addRow(password_label, self.pass_input)
-        form.addRow(confirm_label, self.confirm_input)
-
+        # Vertical layout
         layout = QtWidgets.QVBoxLayout(self)
         layout.setContentsMargins(0, 0, 0, 0)
+        layout.setSpacing(0)
+        
         layout.addWidget(title)
+        layout.addSpacing(4)
         layout.addWidget(subtitle)
-        layout.addSpacing(10)
-        layout.addLayout(form)
+        layout.addSpacing(24)
+        
+        layout.addWidget(name_label)
+        layout.addSpacing(6)
+        layout.addWidget(self.name_input)
+        layout.addSpacing(16)
+        
+        layout.addWidget(email_label)
+        layout.addSpacing(6)
+        layout.addWidget(self.email_input)
+        layout.addSpacing(16)
+        
+        layout.addWidget(password_label)
+        layout.addSpacing(6)
+        layout.addWidget(self.pass_input)
+        layout.addSpacing(16)
+        
+        layout.addWidget(confirm_label)
+        layout.addSpacing(6)
+        layout.addWidget(self.confirm_input)
         layout.addSpacing(8)
+        
         layout.addWidget(self.error_label)
-        layout.addSpacing(8)
+        layout.addSpacing(20)
         layout.addWidget(self.signup_btn)
+        layout.addStretch()
 
     def _set_loading(self, loading: bool) -> None:
         for w in (self.name_input, self.email_input, self.pass_input, self.confirm_input, self.signup_btn):
@@ -231,9 +361,20 @@ class AuthWidget(QtWidgets.QFrame):
     def __init__(self, api: ApiClient, parent=None):
         super().__init__(parent)
         self.api = api
-        self.setObjectName("Card")
+        self.setObjectName("AuthCard")
+        self.setStyleSheet("""
+            QFrame#AuthCard {
+                background: qlineargradient(x1:0, y1:0, x2:0, y2:1,
+                    stop:0 rgba(17, 24, 39, 0.6),
+                    stop:1 rgba(17, 24, 39, 0.4));
+                border: 2px solid rgba(31, 41, 55, 0.8);
+                border-radius: 24px;
+            }
+        """)
 
         self._stack = QtWidgets.QStackedWidget()
+        self._stack.setStyleSheet("background: transparent; border: none;")
+        
         self._login = LoginWidget(api)
         self._signup = SignupWidget(api)
 
@@ -244,21 +385,38 @@ class AuthWidget(QtWidgets.QFrame):
         self._stack.addWidget(self._signup)
 
         self._switch_hint = QtWidgets.QLabel("")
-        self._switch_hint.setObjectName("Muted")
-        self._switch_hint.setStyleSheet("font-size: 15px;")
+        self._switch_hint.setAlignment(QtCore.Qt.AlignCenter)
+        self._switch_hint.setStyleSheet("font-size: 14px; color: #9CA3AF; background: transparent;")
 
         self._switch_btn = QtWidgets.QPushButton("")
-        self._switch_btn.setObjectName("OutlineButton")
-        self._switch_btn.setMinimumHeight(50)
+        self._switch_btn.setObjectName("TextLink")
+        self._switch_btn.setMinimumHeight(40)
+        self._switch_btn.setCursor(QtCore.Qt.PointingHandCursor)
+        self._switch_btn.setStyleSheet("""
+            QPushButton#TextLink {
+                background: transparent;
+                border: none;
+                color: #3B82F6;
+                font-size: 15px;
+                font-weight: 600;
+                text-decoration: underline;
+                padding: 8px;
+            }
+            QPushButton#TextLink:hover {
+                color: #60A5FA;
+            }
+        """)
         self._switch_btn.clicked.connect(self._toggle)
 
         layout = QtWidgets.QVBoxLayout(self)
         layout.setContentsMargins(50, 40, 50, 40)
-        layout.setSpacing(18)
+        layout.setSpacing(0)
         layout.addWidget(self._stack)
-        layout.addSpacing(6)
+        layout.addSpacing(20)
         layout.addWidget(self._switch_hint)
+        layout.addSpacing(8)
         layout.addWidget(self._switch_btn)
+        layout.addSpacing(12)
 
         self.show_login()
 

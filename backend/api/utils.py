@@ -223,31 +223,38 @@ def generate_avg_metrics_per_type_chart(summary: Dict[str, Any]) -> str:
     return temp_file.name
 
 
-def generate_overall_avg_metrics_chart(summary: Dict[str, Any]) -> str:
-    """Generate Overall Average Metrics comparison bar chart."""
-    metrics = ['Flowrate', 'Pressure', 'Temperature']
-    values = [
-        summary.get('average_flowrate', 0),
-        summary.get('average_pressure', 0),
-        summary.get('average_temperature', 0)
-    ]
+def generate_equipment_metrics_trend_chart(summary: Dict[str, Any]) -> str:
+    """Generate Equipment Metrics Trend line chart showing metrics across equipment types."""
+    avg_metrics = summary.get('avg_metrics_per_type', {})
     
-    fig, ax = plt.subplots(figsize=(10, 6))
-    colors_list = ['#06b6d4', '#14b8a6', '#3b82f6']
-    bars = ax.bar(metrics, values, color=colors_list, edgecolor='black', linewidth=1.2)
+    if not avg_metrics:
+        return None
     
-    ax.set_xlabel('Metrics', fontsize=12, fontweight='bold')
+    types = list(avg_metrics.keys())
+    flowrates = [avg_metrics[t]['avg_flowrate'] for t in types]
+    pressures = [avg_metrics[t]['avg_pressure'] for t in types]
+    temperatures = [avg_metrics[t]['avg_temperature'] for t in types]
+    
+    fig, ax = plt.subplots(figsize=(12, 7))
+    
+    # Plot lines with markers
+    ax.plot(types, flowrates, marker='o', linewidth=3, markersize=8, 
+            label='Avg Flowrate', color='#06b6d4', markerfacecolor='#06b6d4', 
+            markeredgecolor='white', markeredgewidth=2)
+    ax.plot(types, pressures, marker='o', linewidth=3, markersize=8, 
+            label='Avg Pressure', color='#14b8a6', markerfacecolor='#14b8a6', 
+            markeredgecolor='white', markeredgewidth=2)
+    ax.plot(types, temperatures, marker='o', linewidth=3, markersize=8, 
+            label='Avg Temperature', color='#3b82f6', markerfacecolor='#3b82f6', 
+            markeredgecolor='white', markeredgewidth=2)
+    
+    ax.set_xlabel('Equipment Type', fontsize=12, fontweight='bold')
     ax.set_ylabel('Average Value', fontsize=12, fontweight='bold')
-    ax.set_title('Overall Average Metrics Comparison', fontsize=14, fontweight='bold', pad=20)
-    ax.grid(axis='y', alpha=0.3, linestyle='--')
+    ax.set_title('Equipment Metrics Trend', fontsize=14, fontweight='bold', pad=20)
+    ax.legend(loc='upper left', fontsize=11, framealpha=0.9)
+    ax.grid(True, alpha=0.3, linestyle='--')
     
-    # Add value labels
-    for bar in bars:
-        height = bar.get_height()
-        ax.text(bar.get_x() + bar.get_width()/2., height,
-                f'{height:.2f}',
-                ha='center', va='bottom', fontsize=11, fontweight='bold')
-    
+    plt.xticks(rotation=45, ha='right')
     plt.tight_layout()
     
     temp_file = tempfile.NamedTemporaryFile(delete=False, suffix='.png')
@@ -430,20 +437,20 @@ def generate_pdf_report_bytes(*, dataset_name: str, uploaded_at, summary: Dict[s
         chart3_path = generate_avg_metrics_per_type_chart(summary)
         if chart3_path:
             temp_files.append(chart3_path)
-            img3 = Image(chart3_path, width=6.5*inch, height=3.8*inch)
+            img3 = Image(chart3_path, width=6.5*inch, height=3*inch)
             story.append(img3)
             story.append(Paragraph('Figure 3: Comparison of average flowrate, pressure, and temperature by equipment type', caption_style))
         
-        story.append(Spacer(1, 0.3*inch))
+        story.append(Spacer(1, 0.2*inch))
         
-        # Chart 4: Overall Metrics
-        story.append(Paragraph('Overall Average Metrics', heading_style))
-        chart4_path = generate_overall_avg_metrics_chart(summary)
+        # Chart 4: Equipment Metrics Trend (Line Chart) - Same page as Chart 3
+        story.append(Paragraph('Equipment Metrics Trend', heading_style))
+        chart4_path = generate_equipment_metrics_trend_chart(summary)
         if chart4_path:
             temp_files.append(chart4_path)
-            img4 = Image(chart4_path, width=6*inch, height=3.6*inch)
+            img4 = Image(chart4_path, width=6.5*inch, height=3*inch)
             story.append(img4)
-            story.append(Paragraph('Figure 4: Overall system average metrics', caption_style))
+            story.append(Paragraph('Figure 4: Trend of average flowrate, pressure, and temperature across equipment types', caption_style))
         
         story.append(PageBreak())
         

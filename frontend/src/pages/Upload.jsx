@@ -71,7 +71,7 @@ const Upload = () => {
     };
 
     return (
-        <div className="min-h-screen flex items-center justify-center px-6 py-24">
+        <div className="min-h-screen flex items-center justify-center px-4 sm:px-6 py-20 sm:py-24">
             {/* Decorative background orbs */}
             <div className="fixed top-20 left-10 w-72 h-72 bg-cyan-500/10 rounded-full blur-3xl pointer-events-none animate-float" />
             <div className="fixed bottom-20 right-10 w-80 h-80 bg-blue-500/10 rounded-full blur-3xl pointer-events-none animate-float" style={{ animationDelay: '2s' }} />
@@ -82,19 +82,19 @@ const Upload = () => {
                 transition={{ duration: 0.5 }}
                 className="w-full max-w-3xl"
             >
-                <div className="text-center mb-10">
-                    <div className="text-7xl mb-6 inline-block filter drop-shadow-2xl">
+                <div className="text-center mb-8 sm:mb-10">
+                    <div className="text-5xl sm:text-7xl mb-4 sm:mb-6 inline-block filter drop-shadow-2xl">
                         📤
                     </div>
-                    <h1 className="text-5xl font-black mb-3 bg-gradient-to-r from-cyan-400 to-blue-400 bg-clip-text text-transparent">
+                    <h1 className="text-3xl sm:text-4xl lg:text-5xl font-black mb-3 bg-gradient-to-r from-cyan-400 to-blue-400 bg-clip-text text-transparent">
                         Upload Dataset
                     </h1>
-                    <p className="text-gray-400 text-lg">
+                    <p className="text-gray-400 text-base sm:text-lg px-4">
                         Upload your chemical equipment data for <span className="text-cyan-400 font-semibold">instant analytics</span>
                     </p>
                 </div>
 
-                <GlassCard className="p-10 backdrop-blur-xl relative overflow-hidden">
+                <GlassCard className="p-6 sm:p-10 backdrop-blur-xl relative overflow-hidden">
                     {/* Decorative gradients */}
                     <div className="absolute -top-12 -right-12 w-48 h-48 bg-gradient-to-br from-cyan-500/20 to-blue-500/20 rounded-full blur-3xl pointer-events-none" />
                     <div className="absolute -bottom-12 -left-12 w-48 h-48 bg-gradient-to-br from-blue-500/20 to-purple-500/20 rounded-full blur-3xl pointer-events-none" />
