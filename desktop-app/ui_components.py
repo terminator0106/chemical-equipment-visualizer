@@ -102,16 +102,19 @@ class KPICardWidget(CardFrame):
         super().__init__(parent, padding=28, hover=False)
         self.setObjectName(f"KPICard_{color}")
         self.color = color
-        self.setMinimumHeight(180)
+        self.setMinimumHeight(200)
         
         icon_label = QtWidgets.QLabel(icon)
         icon_label.setObjectName("KPIIcon")
+        icon_label.setStyleSheet("font-size: 48px;")  # Larger icon
         
         title_label = QtWidgets.QLabel(title.upper())
         title_label.setObjectName("KPITitle")
+        title_label.setStyleSheet("font-size: 13px; font-weight: 700; letter-spacing: 1px;")  # Better title
         
         self.value_label = QtWidgets.QLabel("—")
         self.value_label.setObjectName("KPIValue")
+        self.value_label.setStyleSheet("font-size: 42px; font-weight: 900;")  # Much larger value
         
         layout = self.layout()
         layout.addWidget(icon_label)
@@ -122,7 +125,7 @@ class KPICardWidget(CardFrame):
     def set_value(self, value: float, unit: str = "") -> None:
         text = f"{value:.2f}"
         if unit:
-            text += f"<span style='font-size: 22px; color: #9CA3AF; font-weight: 400;'>{unit}</span>"
+            text += f"<span style='font-size: 20px; color: #9CA3AF; font-weight: 400; margin-left: 4px;'>{unit}</span>"
         self.value_label.setText(text)
 
 

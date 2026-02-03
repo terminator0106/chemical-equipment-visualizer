@@ -161,16 +161,37 @@ class ApiClient:
             raise ApiError("Unexpected history response.")
         return data
 
-    def get_summary(self, dataset_id: int) -> Dict[str, Any]:
+    def get_summary(self, dataset_id: int, limit: Optional[int] = None) -> Dict[str, Any]:
         if not self._token:
             raise ApiError("Not authenticated.")
 
-        resp = self.session.get(self._url(f"summary/{int(dataset_id)}/"), timeout=self.timeout_s, headers=self._headers())
+        url = f"summary/{int(dataset_id)}/"
+        if limit is not None:
+            url += f"?limit={int(limit)}"
+            
+        resp = self.session.get(self._url(url), timeout=self.timeout_s, headers=self._headers())
         if resp.status_code >= 400:
             self._raise_for_json_error(resp)
         data = resp.json()
         summary = data.get("summary") or {}
         return summary
+
+    def get_csv_data(self, dataset_id: int, limit: Optional[int] = None) -> Tuple[List[Dict[str, Any]], int]:
+        """Get CSV data with optional limit. Returns (data_rows, total_count)."""
+        if not self._token:
+            raise ApiError("Not authenticated.")
+
+        url = f"csv-data/{int(dataset_id)}/"
+        if limit is not None:
+            url += f"?limit={int(limit)}"
+            
+        resp = self.session.get(self._url(url), timeout=self.timeout_s, headers=self._headers())
+        if resp.status_code >= 400:
+            self._raise_for_json_error(resp)
+        data = resp.json()
+        csv_data = data.get("data") or []
+        total_count = data.get("total_count", len(csv_data))
+        return csv_data, total_count
 
     def download_report(self, dataset_id: int) -> Tuple[bytes, str]:
         if not self._token:

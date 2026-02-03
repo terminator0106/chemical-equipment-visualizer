@@ -236,13 +236,14 @@ class ReportView(APIView):
 		except Dataset.DoesNotExist:
 			return Response({'detail': 'Not found.'}, status=status.HTTP_404_NOT_FOUND)
 
-		# Reuse the existing persisted report for this dataset.
-		report = Report.objects.filter(dataset=dataset).first()
-		if report and report.pdf_file:
-			pdf_bytes = report.pdf_file.read()
-			response = HttpResponse(pdf_bytes, content_type='application/pdf')
-			response['Content-Disposition'] = f'attachment; filename="Report {report.report_number}.pdf"'
-			return response
+		# Force regeneration to always get the latest PDF format
+		# (Comment out the caching section below if you want to re-enable caching)
+		# report = Report.objects.filter(dataset=dataset).first()
+		# if report and report.pdf_file:
+		# 	pdf_bytes = report.pdf_file.read()
+		# 	response = HttpResponse(pdf_bytes, content_type='application/pdf')
+		# 	response['Content-Disposition'] = f'attachment; filename="Report {report.report_number}.pdf"'
+		# 	return response
 
 		dataset_name = os.path.basename(dataset.file_name)
 		pdf_bytes = generate_pdf_report_bytes(
@@ -252,20 +253,31 @@ class ReportView(APIView):
 		)
 
 		with transaction.atomic():
-			# Allocate the next report number for this user.
-			last_number = (
-				Report.objects.filter(user=request.user)
-				.order_by('-report_number')
-				.values_list('report_number', flat=True)
-				.first()
-			)
-			next_number = int(last_number or 0) + 1
-			report = Report.objects.create(user=request.user, dataset=dataset, report_number=next_number, pdf_file=None)
-			report.pdf_file.save(
-				f"Report {next_number}.pdf",
-				ContentFile(pdf_bytes),
-				save=True,
-			)
+			# Check if report already exists
+			report = Report.objects.filter(dataset=dataset).first()
+			if report:
+				# Update existing report with new PDF
+				report.pdf_file.delete(save=False)
+				report.pdf_file.save(
+					f"Report {report.report_number}.pdf",
+					ContentFile(pdf_bytes),
+					save=True,
+				)
+			else:
+				# Allocate the next report number for this user.
+				last_number = (
+					Report.objects.filter(user=request.user)
+					.order_by('-report_number')
+					.values_list('report_number', flat=True)
+					.first()
+				)
+				next_number = int(last_number or 0) + 1
+				report = Report.objects.create(user=request.user, dataset=dataset, report_number=next_number, pdf_file=None)
+				report.pdf_file.save(
+					f"Report {next_number}.pdf",
+					ContentFile(pdf_bytes),
+					save=True,
+				)
 
 		response = HttpResponse(pdf_bytes, content_type='application/pdf')
 		response['Content-Disposition'] = f'attachment; filename="Report {report.report_number}.pdf"'
