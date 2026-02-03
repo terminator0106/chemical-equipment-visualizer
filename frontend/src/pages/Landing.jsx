@@ -161,6 +161,106 @@ const Landing = () => {
                             </GlassCard>
                         ))}
                     </motion.div>
+
+                    {/* Desktop App Download Section */}
+                    <motion.div
+                        initial={{ opacity: 0, y: 40 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.8, delay: 0.4 }}
+                        className="mt-16"
+                    >
+                        <GlassCard className="p-8 md:p-10 backdrop-blur-xl border-2 border-cyan-500/20">
+                            <div className="grid md:grid-cols-2 gap-8 items-center">
+                                <div className="text-left">
+                                    <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-gradient-to-r from-cyan-500/20 to-blue-500/20 border border-cyan-500/30 mb-4">
+                                        <span className="text-2xl">💻</span>
+                                        <span className="text-sm font-bold text-cyan-400">Desktop Application</span>
+                                    </div>
+                                    <h3 className="text-3xl md:text-4xl font-black mb-4 text-gray-100">
+                                        Work <span className="bg-gradient-to-r from-cyan-400 to-blue-400 bg-clip-text text-transparent">Offline</span>
+                                    </h3>
+                                    <p className="text-gray-400 leading-relaxed mb-6">
+                                        Download our powerful desktop application for Windows. Access all features offline with enhanced performance and native system integration.
+                                    </p>
+                                    <ul className="space-y-3 mb-6">
+                                        <li className="flex items-center gap-3 text-gray-300">
+                                            <svg className="w-5 h-5 text-cyan-400 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                                                <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
+                                            </svg>
+                                            <span className="text-sm">Offline access to all analytics features</span>
+                                        </li>
+                                        <li className="flex items-center gap-3 text-gray-300">
+                                            <svg className="w-5 h-5 text-cyan-400 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                                                <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
+                                            </svg>
+                                            <span className="text-sm">Native Windows performance</span>
+                                        </li>
+                                        <li className="flex items-center gap-3 text-gray-300">
+                                            <svg className="w-5 h-5 text-cyan-400 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                                                <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
+                                            </svg>
+                                            <span className="text-sm">Seamless data synchronization</span>
+                                        </li>
+                                    </ul>
+                                    <motion.a
+                                        href="/downloads/ChemVizDesktop.exe"
+                                        download
+                                        whileHover={{ scale: 1.05, boxShadow: '0 20px 60px rgba(34, 211, 238, 0.4)' }}
+                                        whileTap={{ scale: 0.95 }}
+                                        className="inline-flex items-center gap-3 px-8 py-4 rounded-xl font-bold text-white
+                                                 bg-gradient-to-r from-cyan-500 via-blue-500 to-purple-500
+                                                 shadow-2xl shadow-cyan-500/40
+                                                 transition-all duration-300 border-2 border-cyan-400/30"
+                                    >
+                                        <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+                                        </svg>
+                                        Download for Windows
+                                    </motion.a>
+                                    <p className="text-xs text-gray-500 mt-4">
+                                        Version 1.0.0 • Windows 10/11 • ~50MB
+                                    </p>
+                                </div>
+                                <div className="relative">
+                                    <div className="absolute inset-0 bg-gradient-to-br from-cyan-500/20 to-blue-500/20 rounded-2xl blur-3xl"></div>
+                                    <motion.div
+                                        animate={{
+                                            y: [0, -10, 0],
+                                        }}
+                                        transition={{
+                                            duration: 4,
+                                            repeat: Infinity,
+                                            ease: "easeInOut"
+                                        }}
+                                        className="relative bg-gradient-to-br from-slate-800/50 to-slate-900/50 rounded-2xl p-6 border border-cyan-500/20"
+                                    >
+                                        <div className="flex items-center gap-2 mb-4">
+                                            <div className="w-3 h-3 rounded-full bg-red-500"></div>
+                                            <div className="w-3 h-3 rounded-full bg-yellow-500"></div>
+                                            <div className="w-3 h-3 rounded-full bg-green-500"></div>
+                                        </div>
+                                        <div className="space-y-3">
+                                            <div className="flex items-center gap-3 bg-slate-800/50 rounded-lg p-3">
+                                                <div className="w-8 h-8 rounded bg-gradient-to-br from-cyan-500 to-blue-500 flex items-center justify-center">
+                                                    <svg className="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
+                                                    </svg>
+                                                </div>
+                                                <div className="flex-1">
+                                                    <div className="h-2 bg-cyan-500/30 rounded w-3/4"></div>
+                                                </div>
+                                            </div>
+                                            <div className="grid grid-cols-2 gap-3">
+                                                <div className="h-20 bg-gradient-to-br from-blue-500/10 to-cyan-500/10 rounded-lg border border-blue-500/20"></div>
+                                                <div className="h-20 bg-gradient-to-br from-purple-500/10 to-blue-500/10 rounded-lg border border-purple-500/20"></div>
+                                            </div>
+                                            <div className="h-24 bg-gradient-to-br from-cyan-500/10 to-blue-500/10 rounded-lg border border-cyan-500/20"></div>
+                                        </div>
+                                    </motion.div>
+                                </div>
+                            </div>
+                        </GlassCard>
+                    </motion.div>
                 </div>
             </div>
 

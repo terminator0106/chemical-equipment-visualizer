@@ -164,8 +164,8 @@ const Navbar = () => {
                                 { to: '/upload', label: 'Upload', icon: '📤' },
                                 { to: '/history', label: 'History', icon: '📚' }
                             ].map((link) => (
-                                <Link
-                                    key={link.to}
+                                <Link 
+                                    key={link.to} 
                                     to={link.to}
                                     onClick={() => setMobileMenuOpen(false)}
                                 >

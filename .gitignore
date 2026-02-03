@@ -11,3 +11,9 @@ backend.venv/
 # Python cache
 __pycache__/
 *.pyc
+
+# PyInstaller (desktop app)
+desktop-app/dist/
+desktop-app/build/
+desktop-app/*.spec
+desktop-app/build.log

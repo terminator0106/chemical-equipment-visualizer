@@ -138,7 +138,7 @@ const History = () => {
                                 <div className="absolute -top-10 -right-10 w-40 h-40 bg-gradient-to-br from-cyan-500/10 to-blue-500/10 
                                               rounded-full blur-3xl pointer-events-none"></div>
 
-                                <div className="flex flex-col gap-4 sm:gap-6 relative z-10">
+                                <div className="flex flex-col lg:flex-row gap-4 sm:gap-6 relative z-10">
                                     <div className="flex-1">
                                         <div className="flex items-start gap-3 sm:gap-4 mb-3 sm:mb-4">
                                             <motion.span
@@ -163,7 +163,7 @@ const History = () => {
                                         </div>
 
                                         {/* Premium Quick Stats */}
-                                        <div className="grid grid-cols-2 sm:flex sm:flex-wrap gap-2 sm:gap-3">
+                                        <div className="grid grid-cols-2 lg:grid-cols-4 gap-2 sm:gap-3">
                                             <motion.div
                                                 whileHover={{ scale: 1.05 }}
                                                 className="px-5 py-3 rounded-xl bg-gradient-to-br from-blue-500/20 to-blue-600/10 
@@ -207,12 +207,12 @@ const History = () => {
                                         </div>
                                     </div>
 
-                                    <div className="flex flex-col gap-3 lg:min-w-[220px]">
+                                    <div className="flex flex-col gap-3 lg:w-[240px] lg:justify-center">
                                         <motion.button
                                             whileHover={{ scale: 1.05, boxShadow: '0 10px 40px rgba(34, 211, 238, 0.4)' }}
                                             whileTap={{ scale: 0.95 }}
                                             onClick={() => handleViewSummary(dataset)}
-                                            className="px-6 py-3 rounded-xl font-bold text-white text-sm w-full
+                                            className="px-6 py-4 rounded-xl font-bold text-white text-sm w-full
                                                      bg-gradient-to-r from-cyan-500 to-blue-500
                                                      shadow-lg shadow-cyan-500/30
                                                      transition-all duration-300 border border-cyan-400/30"
@@ -221,7 +221,7 @@ const History = () => {
                                         </motion.button>
                                         <button
                                             onClick={() => handleDownloadReport(dataset.id)}
-                                            className="glass-button-outline text-sm py-3 w-full"
+                                            className="glass-button-outline text-sm py-4 w-full"
                                         >
                                             📄 Download PDF
                                         </button>

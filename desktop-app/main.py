@@ -13,10 +13,30 @@ from history import HistoryWidget
 
 
 def _read_styles() -> str:
-    here = os.path.dirname(os.path.abspath(__file__))
-    path = os.path.join(here, "styles.qss")
-    with open(path, "r", encoding="utf-8") as f:
-        return f.read()
+    candidates: list[str] = []
+
+    # When bundled with PyInstaller, resources may live under sys._MEIPASS.
+    if getattr(sys, "frozen", False) and hasattr(sys, "_MEIPASS"):
+        candidates.append(getattr(sys, "_MEIPASS"))
+
+    # Also try next to the executable (useful when shipping styles.qss alongside the .exe)
+    if getattr(sys, "frozen", False):
+        candidates.append(os.path.dirname(sys.executable))
+
+    # Development / source tree
+    candidates.append(os.path.dirname(os.path.abspath(__file__)))
+
+    for base in candidates:
+        path = os.path.join(base, "styles.qss")
+        if os.path.exists(path):
+            try:
+                with open(path, "r", encoding="utf-8") as f:
+                    return f.read()
+            except Exception:
+                pass
+
+    # Missing styles should not crash the app.
+    return ""
 
 
 class TopNavBar(QtWidgets.QFrame):
